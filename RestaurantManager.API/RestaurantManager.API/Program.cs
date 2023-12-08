@@ -10,17 +10,17 @@ var connectionString = builder.Configuration.GetConnectionString("RestaurantMana
 
 //Database Layer
 builder.Services.AddDbContext<RestaurantManagerDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //Business Layer
-builder.Services.AddSingleton<IAddressBusiness, AddressBusiness>();
-builder.Services.AddSingleton<IDriverBusiness, DriverBusiness>();
-builder.Services.AddSingleton<IMenuBusiness, MenuBusiness>();
-builder.Services.AddSingleton<IOrderBusiness, OrderBusiness>();
-builder.Services.AddSingleton<IPaymentBusiness, PaymentBusiness>();
-builder.Services.AddSingleton<IRatingBusiness, RatingBusiness>();
-builder.Services.AddSingleton<IRestaurantBusiness, RestaurantBusiness>();
-builder.Services.AddSingleton<IUserBusiness, UserBusiness>();
+builder.Services.AddScoped<IAddressBusiness, AddressBusiness>();
+builder.Services.AddScoped<IDriverBusiness, DriverBusiness>();
+builder.Services.AddScoped<IMenuBusiness, MenuBusiness>();
+builder.Services.AddScoped<IOrderBusiness, OrderBusiness>();
+builder.Services.AddScoped<IPaymentBusiness, PaymentBusiness>();
+builder.Services.AddScoped<IRatingBusiness, RatingBusiness>();
+builder.Services.AddScoped<IRestaurantBusiness, RestaurantBusiness>();
+builder.Services.AddScoped<IUserBusiness, UserBusiness>();
 
 //Automapper for DTOs
 builder.Services.AddAutoMapper(typeof(MapperInitializer));

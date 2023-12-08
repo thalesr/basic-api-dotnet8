@@ -32,7 +32,7 @@ namespace RestaurantManager.Database.UOW
         public IGenericRepository<Rating> Ratings => _ratings ?? new GenericRepository<Rating>(_context);
         public IGenericRepository<Restaurant> Restaurants => _restaurants ?? new GenericRepository<Restaurant>(_context);
         public IGenericRepository<User> Users => _users ?? new GenericRepository<User>(_context);
-        public RestaurantManagerDbContext Context => throw new NotImplementedException();
+        public RestaurantManagerDbContext Context => _context;
 
         public void Dispose()
         {
