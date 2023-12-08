@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantManager.Business.Definitions;
+using RestaurantManager.Business.Implementations;
 using RestaurantManager.Database.Context;
 using RestaurantManager.Database.UOW;
 
@@ -7,7 +9,17 @@ var connectionString = builder.Configuration.GetConnectionString("RestaurantMana
 
 //Database Layer
 builder.Services.AddDbContext<RestaurantManagerDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
+
+//Business Layer
+builder.Services.AddSingleton<IAddressBusiness, AddressBusiness>();
+builder.Services.AddSingleton<IDriverBusiness, DriverBusiness>();
+builder.Services.AddSingleton<IMenuBusiness, MenuBusiness>();
+builder.Services.AddSingleton<IOrderBusiness, OrderBusiness>();
+builder.Services.AddSingleton<IPaymentBusiness, PaymentBusiness>();
+builder.Services.AddSingleton<IRatingBusiness, RatingBusiness>();
+builder.Services.AddSingleton<IRestaurantBusiness, RestaurantBusiness>();
+builder.Services.AddSingleton<IUserBusiness, UserBusiness>();
 
 // Add services to the container.
 
