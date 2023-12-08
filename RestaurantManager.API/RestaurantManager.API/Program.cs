@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantManager.API.Configuration;
 using RestaurantManager.Business.Definitions;
 using RestaurantManager.Business.Implementations;
 using RestaurantManager.Database.Context;
@@ -20,6 +21,9 @@ builder.Services.AddSingleton<IPaymentBusiness, PaymentBusiness>();
 builder.Services.AddSingleton<IRatingBusiness, RatingBusiness>();
 builder.Services.AddSingleton<IRestaurantBusiness, RestaurantBusiness>();
 builder.Services.AddSingleton<IUserBusiness, UserBusiness>();
+
+//Automapper for DTOs
+builder.Services.AddAutoMapper(typeof(MapperInitializer));
 
 // Add services to the container.
 
