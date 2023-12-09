@@ -1,6 +1,6 @@
 # basic .NET8 API Solution
 
-A basic .NET API Solution which domain is based in the following post on Medium:
+A basic .NET API Solution which domain is based on the following post on Medium:
 </br>
 https://medium.com/towards-data-engineering/database-design-for-a-food-delivery-app-like-zomato-swiggy-86c16319b5c5
 
