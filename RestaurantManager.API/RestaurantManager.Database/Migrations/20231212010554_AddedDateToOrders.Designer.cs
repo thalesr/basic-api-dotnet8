@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantManager.Database.Context;
 
@@ -11,9 +12,11 @@ using RestaurantManager.Database.Context;
 namespace RestaurantManager.Database.Migrations
 {
     [DbContext(typeof(RestaurantManagerDbContext))]
-    partial class RestaurantManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231212010554_AddedDateToOrders")]
+    partial class AddedDateToOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

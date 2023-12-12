@@ -7,7 +7,7 @@ using RestaurantManager.Model.Entities;
 
 namespace RestaurantManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/menus")]
     [ApiController]
     public class MenuController : GenericController<Menu, 
                                                     MenuController, 

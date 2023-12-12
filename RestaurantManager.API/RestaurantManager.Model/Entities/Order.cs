@@ -15,5 +15,6 @@ namespace RestaurantManager.Model.Entities
         public DeliveryStatusEnum DeliveryStatus { get; set; }
         public int DriverID { get; set; }
         public Driver Driver { get; set; }
+        public DateTime Date { get; set; }
     }
 }

@@ -13,13 +13,13 @@ namespace RestaurantManager.API.Controllers.Base
                                                                             where U : BaseUpdateDTO
     {
 
-        protected readonly IGenericBusiness<T> _genericBusiness;
+        protected readonly IGenericBusiness<T> _business;
         protected readonly ILogger<K> _logger;
         protected readonly IMapper _mapper;
 
-        public GenericController(IGenericBusiness<T> genericBusiness, ILogger<K> logger, IMapper mapper)
+        public GenericController(IGenericBusiness<T> business, ILogger<K> logger, IMapper mapper)
         {
-            _genericBusiness = genericBusiness;
+            _business = business;
             _logger = logger;
             _mapper = mapper;
         }
@@ -27,9 +27,9 @@ namespace RestaurantManager.API.Controllers.Base
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<List<N>>> GetAll()
+        public async Task<ActionResult<List<N>>> GetAll(int? startIndex, int? size)
         {
-            var data = await _genericBusiness.GetAll();
+            var data = await _business.GetAll(startIndex.GetValueOrDefault(), size.GetValueOrDefault());
             var result = _mapper.Map<List<N>>(data);
             return Ok(result);
         }
@@ -47,7 +47,7 @@ namespace RestaurantManager.API.Controllers.Base
                 return BadRequest();
             }
 
-            var data = await _genericBusiness.GetById(id);
+            var data = await _business.GetById(id);
             if (data == null)
             {
                 _logger.LogError("Given ID is invalid");
@@ -72,7 +72,7 @@ namespace RestaurantManager.API.Controllers.Base
             }
 
             var mappedObj = _mapper.Map<T>(obj);
-            await _genericBusiness.Save(mappedObj);
+            await _business.Save(mappedObj);
             return Created();
 
         }
@@ -81,7 +81,7 @@ namespace RestaurantManager.API.Controllers.Base
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public virtual async Task<IActionResult> Put(int id, [FromBody] U obj)
+        public virtual async Task<ActionResult> Put(int id, [FromBody] U obj)
         {
 
             if (!ModelState.IsValid || id <= 0)
@@ -90,7 +90,7 @@ namespace RestaurantManager.API.Controllers.Base
                 return BadRequest(ModelState);
             }
 
-            var item = await _genericBusiness.GetById(id);
+            var item = await _business.GetById(id);
             if (item == null)
             {
                 _logger.LogError("Invalid UPDATE attempt");
@@ -98,7 +98,7 @@ namespace RestaurantManager.API.Controllers.Base
             }
 
             var mappedObj = _mapper.Map(obj, item);
-            await _genericBusiness.Save(mappedObj);
+            await _business.Save(mappedObj);
             return NoContent();
 
         }
@@ -107,7 +107,7 @@ namespace RestaurantManager.API.Controllers.Base
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public virtual async Task<IActionResult> Delete(int id)
+        public virtual async Task<ActionResult> Delete(int id)
         {
 
             if (id <= 0)
@@ -116,14 +116,14 @@ namespace RestaurantManager.API.Controllers.Base
                 return BadRequest();
             }
 
-            var item = await _genericBusiness.GetById(id);
+            var item = await _business.GetById(id);
             if (item == null)
             {
                 _logger.LogError("Invalid DELETE attempt");
                 return BadRequest("Submitted data is invalid");
             }
 
-            await _genericBusiness.Delete(id);
+            await _business.Delete(id);
             return NoContent();
 
         }

@@ -7,18 +7,20 @@ using RestaurantManager.Model.Entities;
 
 namespace RestaurantManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/orders")]
     [ApiController]
-    public class OrderController : GenericController<Order, 
-                                                     OrderController, 
-                                                     OrderDTO, 
-                                                     CreateOrderDTO, 
+    public class OrderController : GenericController<Order,
+                                                     OrderController,
+                                                     OrderDTO,
+                                                     CreateOrderDTO,
                                                      UpdateOrderDTO>
     {
-        public OrderController(IOrderBusiness orderBusiness, 
-                               ILogger<OrderController> logger, 
+
+        public OrderController(IOrderBusiness orderBusiness,
+                               ILogger<OrderController> logger,
                                IMapper mapper) : base(orderBusiness, logger, mapper)
         {
-        }
+        }    
+
     }
 }

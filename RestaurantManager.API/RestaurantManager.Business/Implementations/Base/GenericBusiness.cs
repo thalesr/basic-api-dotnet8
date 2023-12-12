@@ -23,6 +23,11 @@ namespace RestaurantManager.Business.Implementations.Base
             await Repository.Save();
         }
 
+        public virtual async Task<List<T>> GetAll(int startIndex, int size)
+        {
+            return await Repository.GetAll(startIndex: startIndex, size: size);
+        }
+
         public virtual async Task<List<T>> GetAll()
         {
             return await Repository.GetAll();

@@ -7,7 +7,7 @@ using RestaurantManager.Model.Entities;
 
 namespace RestaurantManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/drivers")]
     [ApiController]
     public class DriverController : GenericController<Driver, 
                                                       DriverController, 

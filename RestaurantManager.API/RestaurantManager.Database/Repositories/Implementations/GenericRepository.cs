@@ -43,7 +43,8 @@ namespace RestaurantManager.Database.Repositories.Implementations
         public async Task<List<T>> GetAll(Expression<Func<T, bool>> expression = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            int limitRows = 0)
+            int startIndex = 1,
+            int size = 0)
         {
             IQueryable<T> query = _db;
 
@@ -62,15 +63,17 @@ namespace RestaurantManager.Database.Repositories.Implementations
                 query = orderBy(query);
             }
 
-            if (limitRows > 0)
+            if (startIndex > 0)
             {
-                return await query.Take(limitRows).ToListAsync();
-            }
-            else
-            {
-                return await query.ToListAsync();
+                query = query.Skip(startIndex - 1);
             }
 
+            if (size > 0)
+            {
+                query = query.Take(size);
+            }
+
+            return await query.ToListAsync();
 
         }
 
